@@ -1,0 +1,39 @@
+.button {
+    padding: 10px;
+    border-radius: 15%;
+    outline: none;
+    border: none;
+    background-color: var(--normal);
+}
+
+.list {
+    background-color: var(--base);
+    max-width: 260px;
+    border-radius: 5px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.option {
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.option:hover {
+    background-color: var(--active);
+}
+
+.text {
+    margin: 0;
+    font-weight: 500;
+}
+
+.icon {}
