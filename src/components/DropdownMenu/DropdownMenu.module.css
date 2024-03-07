@@ -1,39 +1,74 @@
-.button {
-    padding: 10px;
-    border-radius: 15%;
-    outline: none;
-    border: none;
-    background-color: var(--normal);
+.dropdown {
+  position: relative;
 }
 
-.list {
-    background-color: var(--base);
-    max-width: 260px;
-    border-radius: 5px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+.button {
+  padding: 10px;
+  border-radius: 15%;
+  outline: none;
+  border: none;
+  background-color: var(--normal);
+}
+
+.content {
+  background-color: var(--base);
+  width: 260px;
+  border-radius: 5px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: block;
+  position: absolute;
+  z-index: 1;
 }
 
 .option {
-    padding: 15px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    text-align: left;
-    cursor: pointer;
-    border-radius: 5px;
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .option:hover {
-    background-color: var(--active);
+  background-color: var(--active);
 }
 
 .text {
-    margin: 0;
-    font-weight: 500;
+  margin: 0;
+  font-weight: 500;
 }
 
-.icon {}
+.icon {
+}
+
+/* Стили для изменения положения выпадающего контента в зависимости от стороны открытия */
+
+/* отображение вниз */
+.down {
+  top: 47px;
+}
+
+/* отображение вверх */
+.up {
+  bottom: 47px;
+}
+
+/* отображение влево */
+.right {
+  left: 0;
+}
+
+/* отображение вправо */
+.left {
+  right: 0;
+}
+
+/* Скрывать выпадающее меню при выходе инициирующего элемента из вьюпорта */
+.dropdown.is-out-of-viewport .content {
+  display: none;
+}

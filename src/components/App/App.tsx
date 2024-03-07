@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './App.css';
+import styles from './App.module.css';
 import DropdownMenu from '../DropdownMenu/DropdownMenu';
 
 //контент для дропдауна (в данном случае - простой массив)
@@ -19,7 +19,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className={styles.app}>
       {options.map((_, index) => (
         <DropdownMenu
           key={index}

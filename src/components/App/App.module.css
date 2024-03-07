@@ -1,0 +1,9 @@
+.app {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 1280px;
+  margin-top: 600px;
+}
+
