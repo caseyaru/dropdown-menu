@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './App.module.css';
 import DropdownMenu from '../DropdownMenu/DropdownMenu';
 
@@ -10,12 +10,14 @@ function App() {
 
   const handleToggleDropdown = (index: number) => {
     if (openDropdownIndex === index) {
-      // Если кликаем по уже открытому, закрываем
       setOpenDropdownIndex(null);
     } else {
-      // Иначе открываем текущий и закрываем остальные
       setOpenDropdownIndex(index);
     }
+  };
+
+  const closeDropdown = () => {
+    setOpenDropdownIndex(null);
   };
 
   return (
@@ -26,11 +28,9 @@ function App() {
           isOpen={openDropdownIndex === index}
           items={options}
           handleClick={() => handleToggleDropdown(index)}
+          closeDropdown={closeDropdown}
         />
       ))}
-      {/* <DropdownMenu isOpen={isOpen} items={options} handleClick={handleOpen} />
-      <DropdownMenu isOpen={isOpen} items={options} handleClick={handleOpen} />
-      <DropdownMenu isOpen={isOpen} items={options} handleClick={handleOpen} /> */}
     </div>
   );
 }

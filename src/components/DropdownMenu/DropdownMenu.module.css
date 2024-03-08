@@ -7,6 +7,7 @@
   border-radius: 15%;
   outline: none;
   border: none;
+  cursor: pointer;
   background-color: var(--normal);
 }
 
