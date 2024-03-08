@@ -21,6 +21,7 @@
   display: block;
   position: absolute;
   z-index: 1;
+  font-size: 16px;
 }
 
 .option {
@@ -69,7 +70,9 @@
   right: 0;
 }
 
-/* Скрывать выпадающее меню при выходе инициирующего элемента из вьюпорта */
-.dropdown.is-out-of-viewport .content {
-  display: none;
+@media screen and (max-width:587px) {
+  .content {
+    width: 160px;
+    font-size: 12px;
+  }
 }
