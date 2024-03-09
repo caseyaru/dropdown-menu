@@ -36,14 +36,14 @@ describe('DropdownMenu component', () => {
   });
 
   it('handleClick works when clicking on DropdownMenu button', () => {
-    const {getByTestId} = render(
-        <DropdownMenu
-          isOpen={true}
-          items={items}
-          handleClick={handleClick}
-          closeDropdown={closeDropdown}
-        />,
-      );
+    const { getByTestId } = render(
+      <DropdownMenu
+        isOpen={true}
+        items={items}
+        handleClick={handleClick}
+        closeDropdown={closeDropdown}
+      />,
+    );
     fireEvent.click(getByTestId('dropdown-button'));
     expect(handleClick).toHaveBeenCalled();
   });
@@ -59,5 +59,22 @@ describe('DropdownMenu component', () => {
     );
     fireEvent.click(getByText('Option 1'));
     expect(items[0].handleSelect).toHaveBeenCalled();
+  });
+
+  it('calculatePosition works correctly with starting coordinates', () => {
+    render(
+      <DropdownMenu
+        isOpen={true}
+        items={items}
+        handleClick={handleClick}
+        closeDropdown={closeDropdown}
+      />,
+    );
+
+    const buttonDownRight = screen.getByTestId('dropdown-button');
+    fireEvent.click(buttonDownRight);
+
+    expect(screen.getByTestId('dropdown-content')).toHaveClass('down');
+    expect(screen.getByTestId('dropdown-content')).toHaveClass('right');
   });
 });

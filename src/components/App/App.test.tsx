@@ -1,6 +1,6 @@
-import React from 'react'
-import { render, screen, fireEvent } from '@testing-library/react'
-import App from './App'
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import App from './App';
 
 describe('App component', () => {
   it('App renders', () => {
@@ -11,8 +11,8 @@ describe('App component', () => {
   it('renders all DropdownMenus', () => {
     const { getAllByTestId } = render(<App />);
     const dropdownMenus = getAllByTestId('dropdown-menu');
-    
-    dropdownMenus.forEach((menu, index) => {
+
+    dropdownMenus.forEach((menu) => {
       fireEvent.click(menu);
       expect(menu).toBeInTheDocument();
     });

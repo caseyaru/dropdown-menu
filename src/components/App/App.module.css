@@ -4,6 +4,7 @@
   flex-direction: row;
   justify-content: space-between;
   max-width: 1280px;
+  /* отступы здесь - чисто для проверки скролла и изменения положения */
   margin: 500px auto 900px;
   padding: 0 15px;
 }

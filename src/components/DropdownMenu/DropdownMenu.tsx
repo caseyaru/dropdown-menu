@@ -14,7 +14,7 @@ const DropdownMenu = ({ isOpen, items, handleClick, closeDropdown }: DropdownMen
   const contentRef = useRef<HTMLUListElement>(null); //для закрытия контента при нажатии вне его
 
   const [prevScrollPos, setPrevScrollPos] = useState<number>(window.scrollY);
-  const [visibility, setVisibility] = useState<string>('visibile'); //демонстрация контента при скролле
+  const [visibility, setVisibility] = useState<string>('visible'); //демонстрация контента при скролле
 
   const [positionY, setPositionY] = useState<string | number>('down');
   const [positionX, setPositionX] = useState<string | number>('right');
@@ -38,21 +38,21 @@ const DropdownMenu = ({ isOpen, items, handleClick, closeDropdown }: DropdownMen
     if (buttonRef.current && contentRef.current) {
       const buttonRect = buttonRef.current.getBoundingClientRect();
       const currentScrollPos = window.scrollY;
-  
+
       // виден ли button во вьюпорте
       const isButtonVisible =
         buttonRect.top >= 0 &&
         buttonRect.left >= 0 &&
         buttonRect.bottom <= window.innerHeight &&
         buttonRect.right <= window.innerWidth;
-  
-        if (!isButtonVisible && isOpen) {
-          setVisibility('nonvisible')
-        } else if (isButtonVisible && isOpen) {
-          setVisibility('visible')
-        } else {
-          setVisibility('visible')
-        }
+
+      if (!isButtonVisible && isOpen) {
+        setVisibility('nonvisible');
+      } else if (isButtonVisible && isOpen) {
+        setVisibility('visible');
+      } else {
+        setVisibility('visible');
+      }
 
       setPrevScrollPos(currentScrollPos);
     }
@@ -95,7 +95,14 @@ const DropdownMenu = ({ isOpen, items, handleClick, closeDropdown }: DropdownMen
 
   return (
     <div className={styles.dropdown} data-testid="dropdown-menu">
-      <button type="button" onClick={handleClick} className={styles.button} ref={buttonRef} data-testid="dropdown-button" id="button">
+      <button
+        type="button"
+        onClick={handleClick}
+        className={styles.button}
+        ref={buttonRef}
+        data-testid="dropdown-button"
+        id="button"
+      >
         <img src="info.svg" alt="dropdown main icon" />
       </button>
       {isOpen && (

@@ -13,7 +13,7 @@ export const options: Option[] = [
     {
         title: 'Редактировать страницу',
         icon: 'edit.svg',
-        handleSelect: () => console.log('опция редачить')
+        handleSelect: () => console.log('опция редактировать')
     },
     {
         title: 'Удалить страницу',
