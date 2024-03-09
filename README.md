@@ -18,5 +18,5 @@
 - Тестирование JEST по основной функциональности
 
 ##### Запуск
-npm i
-npm run start
+> npm i <br>
+> npm run start
