@@ -24,11 +24,12 @@ function App() {
 
   const openDropdown = () => {
     console.log('ты работаешь')
-    if (lastOpenedIndex !== null) {
-      console.log(lastOpenedIndex)
-      setOpenDropdownIndex(lastOpenedIndex)
-      console.log('openDropdownIndex', openDropdownIndex)
-    }
+    setOpenDropdownIndex(lastOpenedIndex)
+    // if (lastOpenedIndex !== null) {
+    //   //console.log(lastOpenedIndex)
+    //   setOpenDropdownIndex(lastOpenedIndex)
+    //   //console.log('openDropdownIndex', openDropdownIndex)
+    // }
   };
 
   return (

@@ -14,6 +14,9 @@ const DropdownMenu = ({ isOpen, items, handleClick, closeDropdown, openDropdown 
   const buttonRef = useRef<HTMLButtonElement>(null); //для высчитывания положения контента
   const contentRef = useRef<HTMLUListElement>(null); //для закрытия контента при нажатии вне его
 
+  const [wasContentOpenBeforeScroll, setWasContentOpenBeforeScroll] = useState<boolean>(false);
+  const [prevScrollPos, setPrevScrollPos] = useState<number>(window.scrollY);
+
   const [positionY, setPositionY] = useState<string | number>('down');
   const [positionX, setPositionX] = useState<string | number>('right');
 
@@ -32,30 +35,30 @@ const DropdownMenu = ({ isOpen, items, handleClick, closeDropdown, openDropdown 
     }
   };
 
-  const [prevScrollPos, setPrevScrollPos] = useState<number>(window.scrollY);
-
   const handleScroll = () => {
     if (buttonRef.current && contentRef.current) {
       const buttonRect = buttonRef.current.getBoundingClientRect();
       const currentScrollPos = window.scrollY;
   
-      // Проверяем, виден ли button во viewport
+      // виден ли button во вьюпорте
       const isButtonVisible =
         buttonRect.top >= 0 &&
         buttonRect.left >= 0 &&
         buttonRect.bottom <= window.innerHeight &&
         buttonRect.right <= window.innerWidth;
   
-      if (!isButtonVisible && isOpen) {
-        // Если button не виден и контент открыт, скрываем контент
-        closeDropdown();
-        console.log('батон невизибл');
-      } else if (isButtonVisible) {
-        // Если button виден
-        calculatePosition();
-        console.log('батон визибл');
-        openDropdown();
-      }
+        if (!isButtonVisible && isOpen) {
+          // кнопка не видна и контент открыт, скрываем контент
+          closeDropdown();
+          setWasContentOpenBeforeScroll(true); // запоминаем, что контент был открыт
+        } else if (isButtonVisible) {
+          // кнопка видна
+          calculatePosition();
+          if (wasContentOpenBeforeScroll) {
+            openDropdown(); // если контент был открыт до скролла, открываем его снова
+          }
+          setWasContentOpenBeforeScroll(false); // сбрасываем флаг после обработки скролла
+        }
 
       setPrevScrollPos(currentScrollPos);
     }
@@ -70,7 +73,7 @@ const DropdownMenu = ({ isOpen, items, handleClick, closeDropdown, openDropdown 
       window.removeEventListener('resize', calculatePosition);
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [isOpen, prevScrollPos]);
+  }, [isOpen, prevScrollPos, wasContentOpenBeforeScroll]);
 
   const handleOptionClick = (item: Option) => {
     item.handleSelect();
@@ -88,7 +91,7 @@ const DropdownMenu = ({ isOpen, items, handleClick, closeDropdown, openDropdown 
     }
   };
 
-  //слушатели для акрытия по нажатию вне контента
+  //слушатели для закрытия по нажатию вне контента
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
@@ -97,14 +100,15 @@ const DropdownMenu = ({ isOpen, items, handleClick, closeDropdown, openDropdown 
   }, [handleClickOutside]);
 
   return (
-    <div className={styles.dropdown}>
-      <button type="button" onClick={handleClick} className={styles.button} ref={buttonRef}>
+    <div className={styles.dropdown} data-testid="dropdown-menu">
+      <button type="button" onClick={handleClick} className={styles.button} ref={buttonRef} data-testid="dropdown-button" id="button">
         <img src="info.svg" alt="dropdown main icon" />
       </button>
       {isOpen && (
         <ul
           className={`${styles.content} ${styles[positionX]} ${styles[positionY]}`}
           ref={contentRef}
+          data-testid="dropdown-content"
         >
           {items.map((item, index) => (
             <li key={index} className={styles.option} onClick={() => handleOptionClick(item)}>
