@@ -18,10 +18,17 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  display: block;
   position: absolute;
   z-index: 1;
   font-size: 16px;
+}
+
+.nonvisible {
+  display: none;
+}
+
+.visible {
+  display: block;
 }
 
 .option {

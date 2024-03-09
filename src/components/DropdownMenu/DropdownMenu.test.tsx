@@ -3,13 +3,12 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import DropdownMenu from './DropdownMenu';
 
-const handleClick = jest.fn();
 const items = [
   { title: 'Option 1', icon: 'icon1.png', handleSelect: jest.fn() },
   { title: 'Option 2', icon: 'icon2.png', handleSelect: jest.fn() },
 ];
+const handleClick = jest.fn();
 const closeDropdown = jest.fn();
-const openDropdown = jest.fn();
 
 describe('DropdownMenu component', () => {
   it('DropdownMenu renders when it isnt open', () => {
@@ -19,7 +18,6 @@ describe('DropdownMenu component', () => {
         items={items}
         handleClick={handleClick}
         closeDropdown={closeDropdown}
-        openDropdown={openDropdown}
       />,
     );
     screen.debug();
@@ -32,7 +30,6 @@ describe('DropdownMenu component', () => {
         items={items}
         handleClick={handleClick}
         closeDropdown={closeDropdown}
-        openDropdown={openDropdown}
       />,
     );
     expect(screen.getByRole('list')).toBeInTheDocument();
@@ -45,7 +42,6 @@ describe('DropdownMenu component', () => {
           items={items}
           handleClick={handleClick}
           closeDropdown={closeDropdown}
-          openDropdown={openDropdown}
         />,
       );
     fireEvent.click(getByTestId('dropdown-button'));
@@ -59,7 +55,6 @@ describe('DropdownMenu component', () => {
         items={items}
         handleClick={handleClick}
         closeDropdown={closeDropdown}
-        openDropdown={openDropdown}
       />,
     );
     fireEvent.click(getByText('Option 1'));

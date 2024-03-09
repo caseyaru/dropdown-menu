@@ -7,15 +7,14 @@ interface DropdownMenuProps {
   items: Option[];
   handleClick: React.MouseEventHandler<HTMLButtonElement>;
   closeDropdown: () => void;
-  openDropdown: () => void
 }
 
-const DropdownMenu = ({ isOpen, items, handleClick, closeDropdown, openDropdown }: DropdownMenuProps) => {
+const DropdownMenu = ({ isOpen, items, handleClick, closeDropdown }: DropdownMenuProps) => {
   const buttonRef = useRef<HTMLButtonElement>(null); //для высчитывания положения контента
   const contentRef = useRef<HTMLUListElement>(null); //для закрытия контента при нажатии вне его
 
-  const [wasContentOpenBeforeScroll, setWasContentOpenBeforeScroll] = useState<boolean>(false);
   const [prevScrollPos, setPrevScrollPos] = useState<number>(window.scrollY);
+  const [visibility, setVisibility] = useState<string>('visibile'); //демонстрация контента при скролле
 
   const [positionY, setPositionY] = useState<string | number>('down');
   const [positionX, setPositionX] = useState<string | number>('right');
@@ -48,16 +47,11 @@ const DropdownMenu = ({ isOpen, items, handleClick, closeDropdown, openDropdown 
         buttonRect.right <= window.innerWidth;
   
         if (!isButtonVisible && isOpen) {
-          // кнопка не видна и контент открыт, скрываем контент
-          closeDropdown();
-          setWasContentOpenBeforeScroll(true); // запоминаем, что контент был открыт
-        } else if (isButtonVisible) {
-          // кнопка видна
-          calculatePosition();
-          if (wasContentOpenBeforeScroll) {
-            openDropdown(); // если контент был открыт до скролла, открываем его снова
-          }
-          setWasContentOpenBeforeScroll(false); // сбрасываем флаг после обработки скролла
+          setVisibility('nonvisible')
+        } else if (isButtonVisible && isOpen) {
+          setVisibility('visible')
+        } else {
+          setVisibility('visible')
         }
 
       setPrevScrollPos(currentScrollPos);
@@ -73,7 +67,7 @@ const DropdownMenu = ({ isOpen, items, handleClick, closeDropdown, openDropdown 
       window.removeEventListener('resize', calculatePosition);
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [isOpen, prevScrollPos, wasContentOpenBeforeScroll]);
+  }, [isOpen, prevScrollPos]);
 
   const handleOptionClick = (item: Option) => {
     item.handleSelect();
@@ -106,7 +100,7 @@ const DropdownMenu = ({ isOpen, items, handleClick, closeDropdown, openDropdown 
       </button>
       {isOpen && (
         <ul
-          className={`${styles.content} ${styles[positionX]} ${styles[positionY]}`}
+          className={`${styles.content} ${styles[positionX]} ${styles[positionY]} ${styles[visibility]}`}
           ref={contentRef}
           data-testid="dropdown-content"
         >
